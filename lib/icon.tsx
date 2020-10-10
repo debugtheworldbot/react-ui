@@ -1,15 +1,19 @@
 import React from 'react'
+import './icons/wechat.svg'
+import './icons/alipay.svg'
 
-interface IconProps{
-    name:string
+
+interface IconProps {
+    name: string
 }
 
-const Icon:React.FunctionComponent<IconProps>=(props)=>{
-    console.log(props.children)
-    return(
+const Icon: React.FunctionComponent<IconProps> = (props) => {
+    console.log(props.name)
+    return (
         <span>
-            {props.name}
-            icon
+            <svg>
+                <use xlinkHref={`#${props.name}`}/>
+            </svg>
         </span>
     )
 }
