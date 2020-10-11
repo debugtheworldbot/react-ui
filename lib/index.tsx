@@ -9,7 +9,7 @@ const fn:React.MouseEventHandler=(e)=>{
 ReactDom.render(
     <div>
         <Icon name={'alipay'}/>
-        <Icon name={'wechat'} onClick={fn}/>
+        <Icon name={'wechat'} className={'false'} onClick={fn}/>
     </div>
     , document.querySelector("#root"))
 
