@@ -1,6 +1,6 @@
 import React from 'react'
-import './icons/wechat.svg'
-import './icons/alipay.svg'
+import './importIcons'
+
 
 
 interface IconProps {
@@ -8,7 +8,6 @@ interface IconProps {
 }
 
 const Icon: React.FunctionComponent<IconProps> = (props) => {
-    console.log(props.name)
     return (
         <span>
             <svg>
