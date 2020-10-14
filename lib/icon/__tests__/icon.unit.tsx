@@ -1,4 +1,5 @@
 import  React from 'react';
+import 'jest';
 import  renderer from 'react-test-renderer'
 import Icon from "../icon";
 import {mount} from 'enzyme';
