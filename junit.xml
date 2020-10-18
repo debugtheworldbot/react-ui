@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" errors="0" time="1.944">
-  <testsuite name="classes" errors="0" failures="0" skipped="0" timestamp="2020-10-14T14:28:29" time="0.815" tests="5">
+<testsuites name="jest tests" tests="9" failures="0" time="3.942">
+  <testsuite name="classes" errors="0" failures="0" skipped="0" timestamp="2020-10-18T02:06:53" time="2.534" tests="5">
     <testcase classname="classes need one className" name="classes need one className" time="0.002">
     </testcase>
-    <testcase classname="classes need two className" name="classes need two className" time="0.001">
+    <testcase classname="classes need two className" name="classes need two className" time="0">
     </testcase>
     <testcase classname="classes need two className and one is undefined" name="classes need two className and one is undefined" time="0">
     </testcase>
     <testcase classname="classes need a couple of wired variable" name="classes need a couple of wired variable" time="0">
     </testcase>
-    <testcase classname="classes give noting" name="classes give noting" time="0">
+    <testcase classname="classes give noting" name="classes give noting" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="icon" errors="0" failures="0" skipped="0" timestamp="2020-10-14T14:28:30" time="0.199" tests="2">
+  <testsuite name="icon" errors="0" failures="0" skipped="0" timestamp="2020-10-18T02:06:56" time="0.414" tests="2">
     <testcase classname="icon render test?" name="icon render test?" time="0.008">
     </testcase>
-    <testcase classname="icon should response to click event" name="icon should response to click event" time="0.03">
+    <testcase classname="icon should response to click event" name="icon should response to click event" time="0.025">
     </testcase>
   </testsuite>
-  <testsuite name="button" errors="0" failures="0" skipped="0" timestamp="2020-10-14T14:28:30" time="0.152" tests="1">
-    <testcase classname="button is div?" name="button is div?" time="0.002">
+  <testsuite name="button" errors="0" failures="0" skipped="0" timestamp="2020-10-18T02:06:56" time="0.148" tests="1">
+    <testcase classname="button is div?" name="button is div?" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="classes" errors="0" failures="0" skipped="0" timestamp="2020-10-14T14:28:31" time="0.131" tests="1">
+  <testsuite name="classes" errors="0" failures="0" skipped="0" timestamp="2020-10-18T02:06:57" time="0.096" tests="1">
     <testcase classname="classes need one className" name="classes need one className" time="0">
     </testcase>
   </testsuite>
