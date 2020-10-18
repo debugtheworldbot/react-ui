@@ -28,12 +28,7 @@ module.exports = {
             }
         ]
     },
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         title: 'CzUi-React',
-    //         template: "index.html"
-    //     })
-    // ],
+
     // externals: {
     //     react: {
     //         commonjs: 'react',
