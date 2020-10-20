@@ -9,7 +9,7 @@ const DialogExample: React.FunctionComponent = () => {
                 <button>1</button>,
                 <button>2</button>,
                 <button>3</button>
-            ]} onClose={()=>setX(false)}>
+            ]} onClose={()=>setX(false)} clickMaskClose={true}>
                 <div>hi</div>
             </Dialog>
             <button onClick={()=>setX(!x)}>toggle</button>
