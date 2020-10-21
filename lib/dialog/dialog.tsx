@@ -53,16 +53,37 @@ const Dialog: React.FunctionComponent<Props> = (props) => {
 }
 const alert = (content: string) => {
     const component = <Dialog visible={true} onClose={() => {
-        ReactDOM.render(React.cloneElement(component,{visible:false}),div)
+        ReactDOM.render(React.cloneElement(component, {visible: false}), div)
         ReactDOM.unmountComponentAtNode(div) // 卸载组件
         div.remove()
     }}>
         <div>{content}</div>
     </Dialog>
-    const div=document.createElement('div')
+    const div = document.createElement('div')
     document.body.appendChild(div)
-    ReactDOM.render(component,div)
-
+    ReactDOM.render(component, div)
 }
-export {alert}
+const confirm = (content: string, yes?: () => void, no?: () => void) => {
+    const onYes=()=>{
+        ReactDOM.render(React.cloneElement(component, {visible: false}), div)
+        ReactDOM.unmountComponentAtNode(div) // 卸载组件
+        div.remove()
+        yes&&yes()
+    }
+    const onNo=()=>{
+        ReactDOM.render(React.cloneElement(component, {visible: false}), div)
+        ReactDOM.unmountComponentAtNode(div) // 卸载组件
+        div.remove()
+        no&&no()
+    }
+    const component = <Dialog visible={true} buttons={[
+        <button onClick={onYes}>yes</button>,
+        <button onClick={onNo}>no</button>,]} onClose={onNo}>
+        <div>{content}</div>
+    </Dialog>
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    ReactDOM.render(component, div)
+}
+export {alert, confirm}
 export default Dialog
