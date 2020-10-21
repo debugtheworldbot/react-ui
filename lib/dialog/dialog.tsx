@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement,ReactNode} from 'react'
 import './dialog.scss'
 import {Icon} from "../index";
 import {scopedClassMaker} from "../classes";
@@ -35,14 +35,12 @@ const Dialog: React.FunctionComponent<Props> = (props) => {
                 </div>
                 <header className={scopedClass('header')}>hint</header>
                 <main className={scopedClass('main')}>{props.children}</main>
-                <footer className={scopedClass('footer')}>
-                    {buttons ? buttons :
+                {buttons &&
+                    <footer className={scopedClass('footer')}>
                         <div>
-                            <button onClick={handleClose}>ok</button>
-                            <button onClick={handleClose}>cancel</button>
-                        </div>}
-
-                </footer>
+                            {buttons}
+                        </div>
+                </footer>}
             </div>
         </>
         :
@@ -64,17 +62,17 @@ const alert = (content: string) => {
     ReactDOM.render(component, div)
 }
 const confirm = (content: string, yes?: () => void, no?: () => void) => {
-    const onYes=()=>{
+    const onYes = () => {
         ReactDOM.render(React.cloneElement(component, {visible: false}), div)
         ReactDOM.unmountComponentAtNode(div) // 卸载组件
         div.remove()
-        yes&&yes()
+        yes && yes()
     }
-    const onNo=()=>{
+    const onNo = () => {
         ReactDOM.render(React.cloneElement(component, {visible: false}), div)
         ReactDOM.unmountComponentAtNode(div) // 卸载组件
         div.remove()
-        no&&no()
+        no && no()
     }
     const component = <Dialog visible={true} buttons={[
         <button onClick={onYes}>yes</button>,
@@ -85,5 +83,19 @@ const confirm = (content: string, yes?: () => void, no?: () => void) => {
     document.body.appendChild(div)
     ReactDOM.render(component, div)
 }
-export {alert, confirm}
+const modal = (content: ReactNode) => {
+    const onClose = () => {
+        ReactDOM.render(React.cloneElement(component, {visible: false}), div)
+        ReactDOM.unmountComponentAtNode(div) // 卸载组件
+        div.remove()
+    }
+    const component = <Dialog visible={true}  onClose={onClose}>
+        <div>{content}</div>
+    </Dialog>
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    ReactDOM.render(component, div)
+    return onClose
+}
+export {alert, confirm, modal}
 export default Dialog

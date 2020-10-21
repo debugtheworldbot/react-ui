@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
-import Dialog,{alert,confirm} from "./dialog";
+import Dialog, {alert, confirm, modal} from "./dialog";
 
 const DialogExample: React.FunctionComponent = () => {
     const [x, setX] = useState(false)
+    const openModal=()=>{
+        const onClose= modal(<h1>hi<button onClick={()=>onClose()}>11</button></h1>)
+    }
     return (
         <div>
             <Dialog visible={x} buttons={[
@@ -16,7 +19,8 @@ const DialogExample: React.FunctionComponent = () => {
             <button onClick={()=>alert('alert')}>alert</button>
             <button onClick={()=>confirm('alert',()=>{
                 console.log('success')},()=>{
-                console.log('failed')})}>alert</button>
+                console.log('failed')})}>confirm</button>
+            <button onClick={openModal}>modal</button>
         </div>
 
     )
