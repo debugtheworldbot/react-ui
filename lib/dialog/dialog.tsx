@@ -26,7 +26,7 @@ const Dialog: React.FunctionComponent<Props> = (props) => {
     const buttons = props.buttons && props.buttons.length > 0 && props.buttons.map((button, index) => {
         return React.cloneElement(button, {key: index})
     })
-    const dialog = props.visible ?
+    const dialog = props.visible &&
         <>
             <div className={scopedClass('mask')} onClick={handleMask}/>
             <div className={scopedClass()}>
@@ -43,8 +43,7 @@ const Dialog: React.FunctionComponent<Props> = (props) => {
                 </footer>}
             </div>
         </>
-        :
-        null
+
     return (
         ReactDOM.createPortal(dialog, document.body)
     )
