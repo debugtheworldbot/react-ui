@@ -2,6 +2,7 @@ import React, { ReactElement }  from 'react';
 import {scopedClassMaker} from "../classes";
 import './layout.scss'
 import classes from "../helper/classes";
+import Aside from "./aside";
 
 const scopedClass = scopedClassMaker('czUi-layout')
 interface Props extends React.HTMLAttributes<HTMLElement>{
@@ -9,11 +10,16 @@ interface Props extends React.HTMLAttributes<HTMLElement>{
 }
 
 const Layout: React.FunctionComponent<Props> = ({className,...restProps}) => {
-    console.log(restProps.children)
-    // restProps.children&&restProps.children.map(child=>{
-    //
-    // })
-    return <div className={classes(scopedClass(),className)}  {...restProps}>
+    let hasAside=false
+    if(restProps.children&&(restProps.children as Array<ReactElement>).length){
+        (restProps.children as Array<ReactElement>).map(child=>{
+            if(child.type === Aside){
+                hasAside=true
+            }
+        })
+
+    }
+    return <div className={classes(scopedClass(),className,hasAside ? scopedClass('hasAside'):undefined)}  {...restProps}>
         {restProps.children}
     </div>
 }
