@@ -1,4 +1,5 @@
 import classes from "../classes"
+import {scopedClassMaker} from "../../classes";
 
 
 describe('classes',()=>{
@@ -18,8 +19,21 @@ describe('classes',()=>{
         const result = classes('a',undefined,'你好')
         expect(result).toEqual('a 你好' )
     })
-    it('give noting',()=>{
+    it('give nothing',()=>{
         const result = classes()
         expect(result).toEqual('')
     })
 });
+
+describe('scopedClassMaker',()=>{
+    const scopedClass = scopedClassMaker('czUi-layout')
+    it('give nothing',()=>{
+        const result = scopedClass()
+        expect(result).toEqual('czUi-layout')
+    })
+    it('give a string',()=>{
+        const result = scopedClass('test')
+        expect(result).toEqual('czUi-layout-test')
+    })
+
+})
