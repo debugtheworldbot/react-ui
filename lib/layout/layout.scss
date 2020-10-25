@@ -1,24 +1,22 @@
 @import "../helper";
 
 .czUi-layout{
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   height: 500px;
-  &.hasAside{
-    flex-direction: row;
-    .czUi-layout{
-      flex-direction: column;
-
-    }
-  }
+  width: 1000px;
   &-content{
     flex-grow: 1;
-    border: 1px solid grey;
   }
   & &{
     height: auto;
     flex-grow: 1;
     flex-direction: row;
+  }
+  &-hasAside{
+    flex-direction: row;
+    .czUi-layout{
+      flex-direction: column;
+    }
   }
 }
