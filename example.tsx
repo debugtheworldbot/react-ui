@@ -5,15 +5,16 @@ import IconExample from "./lib/icon/iconExample";
 import DialogExamole from "./lib/dialog/dialog.example";
 import ButtonExample from "./lib/buttonExample";
 import LayoutExample from "./lib/layout/layout.example";
+import {Layout,Header,Aside,Content,Footer} from "./lib/layout/layout";
 
 ReactDom.render((
     <Router>
-        <div>
-            <header>
+        <Layout style={{border:'1px solid'}}>
+            <Header>
                 <div className="logo">UI</div>
-            </header>
-            <div>
-                <aside>
+            </Header>
+            <Layout>
+                <Aside>
                     <h2>components</h2>
                     <ul>
                         <li><Link to={'/icon'}>icon</Link></li>
@@ -27,15 +28,17 @@ ReactDom.render((
                     <ul>
                         <li><Link to={'/layout'}>layout</Link></li>
                     </ul>
-                </aside>
-                <main>
+                </Aside>
+                <Content>
                     <Route path={'/icon'} component={IconExample} />
                     <Route path={'/button'} component={ButtonExample} />
                     <Route path={'/dialog'} component={DialogExamole} />
                     <Route path={'/layout'} component={LayoutExample} />
-                </main>
-            </div>
-        </div>
+                </Content>
+            </Layout>
+            <Footer>footer</Footer>
+
+        </Layout>
     </Router>
 
 ), document.querySelector('#root'))
