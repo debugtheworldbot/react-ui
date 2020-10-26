@@ -6,10 +6,10 @@ import DialogExamole from "./lib/dialog/dialog.example";
 import ButtonExample from "./lib/buttonExample";
 import LayoutExample from "./lib/layout/layout.example";
 import {Layout,Header,Aside,Content,Footer} from "./lib/layout/layout";
-
+import './example.scss'
 ReactDom.render((
     <Router>
-        <Layout style={{border:'1px solid'}}>
+        <Layout className={'page'}>
             <Header>
                 <div className="logo">UI</div>
             </Header>
