@@ -10,9 +10,10 @@ import './example.scss'
 ReactDom.render((
     <Router>
         <Layout className={'page'}>
-            <Header>
+            <Header className={'header'}>
                 <div className="logo">
-                    <img src="./lib/icons/logo.png" alt="logo"/>
+                    <img src="./lib/icons/logo.jpg"  width={80} alt="logo"/>
+                    <span>CzUI</span>
                 </div>
             </Header>
             <Layout>

@@ -12,12 +12,20 @@
   box-sizing: border-box
 }
 
-.pages {
+.page {
+  background:  #FFFFFF;
+}
+.header{
+  background:  #F1F0EE;
 
-
+   .logo{
+     display: flex;
+     align-items: center;
+     > span{
+       margin-left: 16px;
+       color:dodgerblue;
+       font-size: 52px;
+     }
+   }
 }
 
-img {
-  background: dodgerblue;
-  width: 120px;
-}
