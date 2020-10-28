@@ -11,7 +11,9 @@ ReactDom.render((
     <Router>
         <Layout className={'page'}>
             <Header>
-                <div className="logo">UI</div>
+                <div className="logo">
+                    <img src="./lib/icons/logo.png" alt="logo"/>
+                </div>
             </Header>
             <Layout>
                 <Aside>
