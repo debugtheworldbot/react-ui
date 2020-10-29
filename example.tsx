@@ -10,15 +10,15 @@ import './example.scss'
 ReactDom.render((
     <Router>
         <Layout className={'page'}>
-            <Header className={'header'}>
+            <Header className={'site-header'}>
                 <div className="logo">
                     <img src="./lib/icons/logo.jpg"  width={80} alt="logo"/>
                     <span>CzUI</span>
                 </div>
             </Header>
             <Layout>
-                <Aside>
-                    <h2>components</h2>
+                <Aside className={'site-aside'}>
+                    <h2>组件</h2>
                     <ul>
                         <li><Link to={'/icon'}>icon</Link></li>
                     </ul>
@@ -39,7 +39,9 @@ ReactDom.render((
                     <Route path={'/layout'} component={LayoutExample} />
                 </Content>
             </Layout>
-            <Footer>footer</Footer>
+            <Footer className={'site-footer'}>
+                &copy; TmIgVl
+            </Footer>
 
         </Layout>
     </Router>
