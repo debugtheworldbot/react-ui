@@ -1,10 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 
-const SwitchWrapper = styled.button.attrs(() => ({
-    type: 'text',
-    height: (props: { $small: string; $big: string }) => props.$small || props.$big || '22px',
-}))`
+const SwitchWrapper = styled.button<{height:string}>`
   outline: none;
   height: ${props => props.height};
   width: calc( ${props => props.height} * 2);
@@ -46,9 +43,9 @@ const SwitchWrapper = styled.button.attrs(() => ({
     }
   }
 `
-
 const Switch = (props: SwitchProps) => {
     const {checked, onChange, disabled, className, small, big, style, onClick} = props
+    const h = small?'16px':big?'28px':'22px'
     const [active, setActive] = useState(checked || false)
     const handleClick = (e: React.MouseEvent) => {
         onClick && onClick(active, e)
@@ -63,7 +60,7 @@ const Switch = (props: SwitchProps) => {
 
     return (
         <SwitchWrapper className={classes(active ? 'checked' : undefined, disabled ? 'disabled' : undefined, className)}
-                       onClick={handleClick} $small={small && '16px'} $big={big && '28px'} style={style}>
+                       onClick={handleClick} height={h} style={style}>
             <span/>
         </SwitchWrapper>
     )

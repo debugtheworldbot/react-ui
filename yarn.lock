@@ -1467,7 +1467,7 @@
 
 "@types/styled-components@^5.1.4":
   version "5.1.4"
-  resolved "https://registry.npm.taobao.org/@types/styled-components/download/@types/styled-components-5.1.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fstyled-components%2Fdownload%2F%40types%2Fstyled-components-5.1.4.tgz#11f167dbde268635c66adc89b5a5db2e69d75384"
+  resolved "https://registry.npm.taobao.org/@types/styled-components/download/@types/styled-components-5.1.4.tgz#11f167dbde268635c66adc89b5a5db2e69d75384"
   integrity sha1-EfFn294mhjXGatyJtaXbLmnXU4Q=
   dependencies:
     "@types/hoist-non-react-statics" "*"
@@ -7865,7 +7865,7 @@ style-loader@^0.23.1:
 
 styled-components@^5.2.0:
   version "5.2.0"
-  resolved "https://registry.npm.taobao.org/styled-components/download/styled-components-5.2.0.tgz?cache=0&sync_timestamp=1599225578636&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fstyled-components%2Fdownload%2Fstyled-components-5.2.0.tgz#6dcb5aa8a629c84b8d5ab34b7167e3e0c6f7ed74"
+  resolved "https://registry.npm.taobao.org/styled-components/download/styled-components-5.2.0.tgz#6dcb5aa8a629c84b8d5ab34b7167e3e0c6f7ed74"
   integrity sha1-bctaqKYpyEuNWrNLcWfj4Mb37XQ=
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
