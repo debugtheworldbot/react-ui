@@ -1,13 +1,16 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import {HashRouter as Router,  Route, NavLink} from 'react-router-dom'
-import IconExample from "./lib/icon/iconExample";
+import IconDemo from "./lib/icon/icon.demo";
 import DialogExamole from "./lib/dialog/dialog.example";
 import ButtonExample from "./lib/buttonExample";
 import LayoutExample from "./lib/layout/layout.example";
 import SwitchExample from "./lib/switch/switch.example";
 import {Layout,Header,Aside,Content,Footer} from "./lib/layout/layout";
 import './example.scss'
+
+
+
 ReactDom.render((
     <Router>
         <Layout className={'page'}>
@@ -34,7 +37,7 @@ ReactDom.render((
                     </ul>
                 </Aside>
                 <Content>
-                    <Route path={'/icon'} component={IconExample} />
+                    <Route path={'/icon'} component={IconDemo} />
                     <Route path={'/button'} component={ButtonExample} />
                     <Route path={'/dialog'} component={DialogExamole} />
                     <Route path={'/layout'} component={LayoutExample} />
