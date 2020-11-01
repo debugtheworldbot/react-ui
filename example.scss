@@ -20,11 +20,15 @@ a {
 *::after {
   box-sizing: border-box
 }
+pre{
+  font-family: Consolas,monospace;
+}
 
 $main-color: dodgerblue;
 $border-color: #EEEEEE;
 .page {
   background: #FFFFFF;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -79,5 +83,8 @@ $border-color: #EEEEEE;
   padding: 16px 0;
   color: #666;
   border-top: 1px solid $border-color;
+}
+.example{
+  padding: 16px 0 ;
 }
 
