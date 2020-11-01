@@ -20,7 +20,7 @@ const SwitchWrapper = styled.button<{height:string}>`
     border-radius: calc( ${props => props.height} / 2);
   }
   &.checked{
-    background: red;
+    background:dodgerblue;
     > span{
       left: calc(100% - calc( ${props => props.height} - 4px) - 2px);
     }
@@ -36,7 +36,7 @@ const SwitchWrapper = styled.button<{height:string}>`
     }
   }
   &.checked:active {
-    background: red;
+    background: dodgerblue;
     > span {
       width:${props => props.height};
       margin-left: -4px;
