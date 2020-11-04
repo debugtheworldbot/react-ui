@@ -13,6 +13,6 @@ module.exports = Object.assign({}, base, {
     plugins: [ new HtmlWebpackPlugin({
         title: 'Cz - React',
         template: 'example.html',
-        filename:'example.html'
+        filename:'index.html'
     })],
 });
