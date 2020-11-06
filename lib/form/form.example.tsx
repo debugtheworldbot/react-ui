@@ -7,10 +7,13 @@ const FormExample: React.FunctionComponent = () => {
         {name: 'username', label: '姓名', input: {type: 'text'}},
         {name: 'password', label: '密码', input: {type: 'password'}},
     ])
+    const handleSubmit= (e:React.FormEvent<HTMLFormElement>) =>{
+        console.log('submit')
+    }
     return (
-        <Form value={formData} fields={fields} buttons={
+        <Form value={formData} fields={fields} onSubmit={handleSubmit} buttons={
             <>
-                <button>submit</button>
+                <button type='submit'>submit</button>
                 <button>cancel</button>
             </>
         }/>
