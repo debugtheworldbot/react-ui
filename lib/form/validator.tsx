@@ -4,7 +4,8 @@ interface FormRules {
     key: string,
     required?: boolean,
     minLength?: number,
-    maxLength?: number
+    maxLength?: number,
+    pattern?:RegExp
 }
 
 interface FormErrors {
@@ -29,7 +30,13 @@ const Validator = (formValue: FormValue, rules: FormRules[]): FormErrors => {
             addError('required!', rule.key)
         }
         if (rule.minLength && !isEmpty(value) && value.length < rule.minLength) {
-            addError('short', rule.key)
+            addError('too short', rule.key)
+        }
+        if (rule.maxLength && !isEmpty(value) && value.length > rule.maxLength) {
+            addError('too long', rule.key)
+        }
+        if(rule.pattern && !rule.pattern.test(value)){
+            addError('invalid pattern',rule.key)
         }
     })
     return errors
