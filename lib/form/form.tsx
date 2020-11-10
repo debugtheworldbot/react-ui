@@ -1,4 +1,5 @@
 import React, {ReactFragment} from 'react'
+import Input from "../input/input";
 
 export interface FormValue {
     [key: string]: any
@@ -27,7 +28,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
             {fields.map(field =>
                 <div key={field.name}>
                     {field.label}:
-                    <input type={field.input.type} value={value[field.name]} onChange={(e)=>handleChange(field.name,e.target.value)}/>
+                    <Input type={field.input.type} value={value[field.name]} onChange={(e)=>handleChange(field.name,e.target.value)}/>
                     <span style={{color:'red'}}>{errors&&errors [field.name]}</span>
                 </div>)}
             <div>
