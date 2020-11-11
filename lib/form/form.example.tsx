@@ -6,7 +6,7 @@ const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
     const [errors,setErrors]=useState({})
     const [fields] = useState([
-        {name: 'username', label: '姓名', input: {type: 'text'}},
+        {name: 'username', label: '姓名22333333333333333', input: {type: 'text'}},
         {name: 'password', label: '密码', input: {type: 'password'}},
     ])
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
