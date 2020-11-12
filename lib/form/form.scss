@@ -1,12 +1,17 @@
 .czUi-form {
-  &-row {
-    margin: 24px 0 ;
-    &:first-child {
-      margin-top: 0;
-    }
-    &:last-child{
-      margin-bottom: 0;
-    }
+  &-tr:first-child &-td {
+    padding-top: 0;
+  }
+  &-tr:last-child &-td {
+    padding-bottom: 0;
+  }
+
+  &-td {
+    padding: 12px 0;
+  }
+
+  &-td + &-td {
+    padding-left: 8px;
   }
 
 }

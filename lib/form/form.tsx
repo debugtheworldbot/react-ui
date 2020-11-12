@@ -30,15 +30,16 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
         <form onSubmit={handleSubmit}>
             <table>
                 {fields.map(field =>
-                    <tr className={classes('czUi-form-row')} key={field.name}>
-                        <td>
+                    <tr className={classes('czUi-form-tr')} key={field.name}>
+                        <td className={'czUi-form-td'}>
+                            <span className={'czUi-form-label'}>
                             {field.label}:
+                            </span>
                         </td>
-                        <td>
-                            <Input type={field.input.type} value={value[field.name]}
+                        <td className={'czUi-form-td'}>
+                            <Input className={'czUi-form-input'} type={field.input.type} value={value[field.name]}
                                    onChange={(e) => handleChange(field.name, e.target.value)}/>
                             <span style={{color: 'red'}}>{errors && errors [field.name]}</span>
-
                         </td>
                     </tr>)}
             </table>
