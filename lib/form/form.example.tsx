@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Form, {FormValue} from "./form";
 import Validator  from "./validator";
+import Button from "../button/button";
 
 const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
@@ -23,8 +24,8 @@ const FormExample: React.FunctionComponent = () => {
               errors={errors}
               buttons={
                   <>
-                      <button type={'submit'}>submit</button>
-                      <button type={'button'}>cancel</button>
+                      <Button type={'submit'}>submit</Button>
+                      <Button type={'button'}>cancel</Button>
                   </>
               }/>
     )

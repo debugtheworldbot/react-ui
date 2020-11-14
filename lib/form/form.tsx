@@ -29,6 +29,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <table>
+                <tbody>
                 {fields.map(field =>
                     <tr className={classes('czUi-form-tr')} key={field.name}>
                         <td className={'czUi-form-td'}>
@@ -42,6 +43,8 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                             <span style={{color: 'red'}}>{errors && errors [field.name]}</span>
                         </td>
                     </tr>)}
+                </tbody>
+
             </table>
 
             <div>

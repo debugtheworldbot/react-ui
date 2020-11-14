@@ -1,0 +1,18 @@
+@import "../helper";
+
+.czUi-button {
+  color: #333;
+  border: 1px solid lighten(#333, 50%);
+  background: white;
+  padding:4px 8px;
+  line-height: 22px;
+  transition: all 0.25s;
+  &:hover,&:focus{
+    border-color: $main-color;
+    color: $main-color;
+  }
+  &:focus{
+    outline: none;
+  }
+
+}
