@@ -24,7 +24,7 @@ const FormExample: React.FunctionComponent = () => {
               errors={errors}
               buttons={
                   <>
-                      <Button type={'submit'}>submit</Button>
+                      <Button type={'submit'} level='important'>submit</Button>
                       <Button type={'button'}>cancel</Button>
                   </>
               }/>

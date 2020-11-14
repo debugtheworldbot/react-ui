@@ -31,7 +31,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
             <table>
                 <tbody>
                 {fields.map(field =>
-                    <tr className={classes('czUi-form-tr')} key={field.name}>
+                    <tr className={'czUi-form-tr'} key={field.name}>
                         <td className={'czUi-form-td'}>
                             <span className={'czUi-form-label'}>
                             {field.label}:
@@ -43,13 +43,16 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                             <span style={{color: 'red'}}>{errors && errors [field.name]}</span>
                         </td>
                     </tr>)}
+                <tr className={'czUi-form-tr'}>
+                    <td className={'czUi-form-td'}/>
+                    <td  className={classes('czUi-form-td','czUi-form-tdButton')}>
+                        {buttons}
+                    </td>
+                </tr>
                 </tbody>
 
             </table>
 
-            <div>
-                {buttons}
-            </div>
 
         </form>
     )
