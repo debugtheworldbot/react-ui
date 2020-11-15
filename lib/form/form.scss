@@ -1,4 +1,10 @@
 .czUi-form {
+  &-table{
+    border-collapse: collapse;
+  }
+  &-label{
+    line-height: 32px;
+  }
   &-tr:first-child &-td {
     padding-top: 0;
   }
@@ -8,11 +14,17 @@
   }
 
   &-td {
-    padding-bottom: 32px;
+    vertical-align: top;
+    padding-bottom: 8px;
   }
 
   &-td + &-td {
     padding-left: 8px;
+  }
+  &-error{
+    color:red ;
+    font-size: 0.8em;
+    margin-top: 4px;
   }
 
   &-tdButton > button {

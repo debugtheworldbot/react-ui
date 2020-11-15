@@ -28,7 +28,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
     }
     return (
         <form onSubmit={handleSubmit}>
-            <table>
+            <table className={'czUi-form-table'}>
                 <tbody>
                 {fields.map(field =>
                     <tr className={'czUi-form-tr'} key={field.name}>
@@ -38,14 +38,14 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                             </span>
                         </td>
                         <td className={'czUi-form-td'}>
-                            <Input className={'czUi-form-input'} type={field.input.type} value={value[field.name]}
-                                   onChange={(e) => handleChange(field.name, e.target.value)}/>
-                            <span style={{color: 'red'}}>{errors && errors [field.name]}</span>
+                                <Input className={'czUi-form-input'} type={field.input.type} value={value[field.name]}
+                                       onChange={(e) => handleChange(field.name, e.target.value)}/>
+                            <div className={'czUi-form-error'}>{errors && errors[field.name] ?errors[field.name].join(','):<span>&nbsp;</span>}</div>
                         </td>
                     </tr>)}
                 <tr className={'czUi-form-tr'}>
                     <td className={'czUi-form-td'}/>
-                    <td  className={classes('czUi-form-td','czUi-form-tdButton')}>
+                    <td className={classes('czUi-form-td', 'czUi-form-tdButton')}>
                         {buttons}
                     </td>
                 </tr>
