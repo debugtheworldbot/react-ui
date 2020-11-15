@@ -14,10 +14,11 @@ interface FormProps {
     onSubmit: React.FormEventHandler<HTMLFormElement>,
     onChange: (value: FormValue) => void,
     errors?: { [k: string]: string[] }
+    errorsDisplayMode?: 'first' | 'all'
 }
 
 const Form: React.FunctionComponent<FormProps> = (props) => {
-    const {fields, buttons, onSubmit, value, onChange, errors} = props
+    const {fields, buttons, onSubmit, value, onChange, errors, errorsDisplayMode} = props
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         onSubmit(e)
@@ -38,9 +39,14 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                             </span>
                         </td>
                         <td className={'czUi-form-td'}>
-                                <Input className={'czUi-form-input'} type={field.input.type} value={value[field.name]}
-                                       onChange={(e) => handleChange(field.name, e.target.value)}/>
-                            <div className={'czUi-form-error'}>{errors && errors[field.name] ?errors[field.name].join(','):<span>&nbsp;</span>}</div>
+                            <Input className={'czUi-form-input'} type={field.input.type} value={value[field.name]}
+                                   onChange={(e) => handleChange(field.name, e.target.value)}/>
+                            <div className={'czUi-form-error'}>{errors && errors[field.name] ?
+                                errorsDisplayMode === 'all' ?
+                                    errors[field.name].join(',') :
+                                    errors[field.name][0]
+                                : <span>&nbsp;</span>}
+                            </div>
                         </td>
                     </tr>)}
                 <tr className={'czUi-form-tr'}>
@@ -50,11 +56,11 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                     </td>
                 </tr>
                 </tbody>
-
             </table>
-
-
         </form>
     )
+}
+Form.defaultProps = {
+    errorsDisplayMode: 'first'
 }
 export default Form

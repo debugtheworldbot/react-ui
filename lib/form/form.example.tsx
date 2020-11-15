@@ -22,6 +22,7 @@ const FormExample: React.FunctionComponent = () => {
     return (
         <Form value={formData} fields={fields} onSubmit={handleSubmit} onChange={(newForm) => setFormData(newForm)}
               errors={errors}
+              errorsDisplayMode={'all'}
               buttons={
                   <>
                       <Button type={'submit'} level='important'>submit</Button>

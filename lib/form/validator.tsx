@@ -30,7 +30,7 @@ const Validator = (formValue: FormValue, rules: FormRules[]): FormErrors => {
     rules.map(rule => {
         const value = formValue[rule.key]
         if (rule.required && isEmpty(value)) {
-            addError('required!', rule.key)
+            addError('required', rule.key)
         }
         if (rule.minLength && !isEmpty(value) && value.length < rule.minLength) {
             addError('too short', rule.key)
