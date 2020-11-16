@@ -7,10 +7,11 @@ const nameList = ['adele', 'bieber', 'beatles']
 const checkUsername = (username: string, succeed: () => void, failed: () => void) => {
     setTimeout(() => {
         if (nameList.indexOf(username) >= 0) {
+            failed()
+        }else {
             succeed()
         }
-       failed()
-    }, 3000)
+    }, 2000)
 }
 const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
@@ -21,10 +22,6 @@ const FormExample: React.FunctionComponent = () => {
     ])
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const rules = [
-            {key: 'username', required: true},
-            {key: 'username', minLength: 8, maxLength: 18},
-            {key: 'username', pattern: /^[A-Za-z0-9]+$/},
-            {key: 'password', required: true},
             {
                 key: 'username', validator: {
                     name: 'unique',
@@ -34,9 +31,17 @@ const FormExample: React.FunctionComponent = () => {
                         })
                     }
                 }
-            }
+            },
+            {key: 'username', required: true},
+            {key: 'username', minLength: 8, maxLength: 18},
+            {key: 'username', pattern: /^[A-Za-z0-9]+$/},
+            {key: 'password', required: true},
+
         ]
-        setErrors(Validator(formData, rules))
+        Validator(formData,rules,(errors)=>{
+            console.log(errors)
+            setErrors(errors)
+        })
     }
     return (
         <Form value={formData} fields={fields} onSubmit={handleSubmit} onChange={(newForm) => setFormData(newForm)}
