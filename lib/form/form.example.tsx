@@ -1,11 +1,20 @@
 import React, {useState} from 'react'
 import Form, {FormValue} from "./form";
-import Validator  from "./validator";
+import Validator from "./validator";
 import Button from "../button/button";
 
+const nameList = ['adele', 'bieber', 'beatles']
+const checkUsername = (username: string, succeed: () => void, failed: () => void) => {
+    setTimeout(() => {
+        if (nameList.indexOf(username) >= 0) {
+            succeed()
+        }
+       failed()
+    }, 3000)
+}
 const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
-    const [errors,setErrors]=useState({})
+    const [errors, setErrors] = useState({})
     const [fields] = useState([
         {name: 'username', label: '姓名', input: {type: 'text'}},
         {name: 'password', label: '密码', input: {type: 'password'}},
@@ -13,9 +22,19 @@ const FormExample: React.FunctionComponent = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const rules = [
             {key: 'username', required: true},
-            {key: 'username', minLength:8, maxLength:18},
-            {key: 'username', pattern:/^[A-Za-z0-9]+$/},
-            {key: 'password',required: true},
+            {key: 'username', minLength: 8, maxLength: 18},
+            {key: 'username', pattern: /^[A-Za-z0-9]+$/},
+            {key: 'password', required: true},
+            {
+                key: 'username', validator: {
+                    name: 'unique',
+                    validate(username: string) {
+                        return new Promise<void>((resolve, reject) => {
+                            checkUsername(username,resolve,reject)
+                        })
+                    }
+                }
+            }
         ]
         setErrors(Validator(formData, rules))
     }
