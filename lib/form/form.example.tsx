@@ -3,7 +3,7 @@ import Form, {FormValue} from "./form";
 import Validator from "./validator";
 import Button from "../button/button";
 
-const nameList = ['adele', 'bieber', 'beatles']
+const nameList = ['adele', 'bieber', 'beatles','hunger1']
 const checkUsername = (username: string, succeed: () => void, failed: () => void) => {
     setTimeout(() => {
         if (nameList.indexOf(username) >= 0) {
@@ -11,7 +11,7 @@ const checkUsername = (username: string, succeed: () => void, failed: () => void
         }else {
             succeed()
         }
-    }, 2000)
+    }, 1000)
 }
 const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
@@ -39,7 +39,6 @@ const FormExample: React.FunctionComponent = () => {
 
         ]
         Validator(formData,rules,(errors)=>{
-            console.log(errors)
             setErrors(errors)
         })
     }
