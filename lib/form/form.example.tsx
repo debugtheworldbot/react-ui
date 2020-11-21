@@ -3,12 +3,12 @@ import Form, {FormValue} from "./form";
 import Validator from "./validator";
 import Button from "../button/button";
 
-const nameList = ['adele', 'bieber', 'beatles','hunger1']
+const nameList = ['adele', 'bieber', 'beatles', 'hunger1']
 const checkUsername = (username: string, succeed: () => void, failed: () => void) => {
     setTimeout(() => {
         if (nameList.indexOf(username) >= 0) {
             failed()
-        }else {
+        } else {
             succeed()
         }
     }, 1000)
@@ -27,7 +27,7 @@ const FormExample: React.FunctionComponent = () => {
                     name: 'unique',
                     validate(username: string) {
                         return new Promise<void>((resolve, reject) => {
-                            checkUsername(username,resolve,reject)
+                            checkUsername(username, resolve, reject)
                         })
                     }
                 }
@@ -38,14 +38,21 @@ const FormExample: React.FunctionComponent = () => {
             {key: 'password', required: true},
 
         ]
-        Validator(formData,rules,(errors)=>{
+        Validator(formData, rules, (errors) => {
             setErrors(errors)
         })
+    }
+    const transformError = (message: string) => {
+        const map: { [k: string]: string } = {
+            unique:'用户名已存在'
+        }
+        return map[message]
     }
     return (
         <Form value={formData} fields={fields} onSubmit={handleSubmit} onChange={(newForm) => setFormData(newForm)}
               errors={errors}
               errorsDisplayMode={'all'}
+              transformError={transformError}
               buttons={
                   <>
                       <Button type={'submit'} level='important'>submit</Button>

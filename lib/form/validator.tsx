@@ -36,29 +36,29 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
             addError({message: 'required'}, rule.key)
         }
         if (rule.minLength && !isEmpty(value) && value.length < rule.minLength) {
-            addError({message: 'too short'}, rule.key)
+            addError({message: 'minLength'}, rule.key)
         }
         if (rule.maxLength && !isEmpty(value) && value.length > rule.maxLength) {
-            addError({message: 'too long'}, rule.key)
+            addError({message: 'maxLength'}, rule.key)
         }
         if (rule.pattern && !rule.pattern.test(value)) {
-            addError({message: 'invalid pattern'}, rule.key)
+            addError({message: 'pattern'}, rule.key)
         }
         if (rule.validator) {
             const promise = rule.validator.validate(value)
-            addError({message:'already exists!!!!' , promise}, rule.key)
+            addError({message:rule.validator.name , promise}, rule.key)
         }
 
     })
     const promiseList = flat(Object.values(errors)).filter((error: OneError) => error.promise)
         .map(item => item.promise)
-    const x = () => {
+    const getMessage = () => {
         callBack(fromEntries(Object.keys(errors).map(key =>
             [key, errors[key].map((item: OneError) => item.message)]
         )))
     }
 
-    Promise.all(promiseList).then(x, x)
+    Promise.all(promiseList).then(getMessage, getMessage)
 }
 const flat = (arr: any[]) => {
     const result = []

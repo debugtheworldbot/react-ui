@@ -14,11 +14,12 @@ interface FormProps {
     onSubmit: React.FormEventHandler<HTMLFormElement>,
     onChange: (value: FormValue) => void,
     errors?: { [k: string]: string[] }
-    errorsDisplayMode?: 'first' | 'all'
+    errorsDisplayMode?: 'first' | 'all',
+    transformError?: (message: string) => string
 }
 
 const Form: React.FunctionComponent<FormProps> = (props) => {
-    const {fields, buttons, onSubmit, value, onChange, errors, errorsDisplayMode} = props
+    const {fields, buttons, onSubmit, value, onChange, errors, errorsDisplayMode, transformError} = props
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         onSubmit(e)
@@ -26,6 +27,15 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
     const handleChange = (name: string, v: string) => {
         const newForm = {...value, [name]: v}
         onChange(newForm)
+    }
+    const transformErrors = (message: string) => {
+        const map: { [k: string]: string } = {
+            required: '必填',
+            minLength: '太短',
+            maxLength: '太长',
+            pattern: '字符串有误'
+        }
+        return transformError && transformError(message) || map[message] || '未知错误'
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -43,8 +53,8 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
                                    onChange={(e) => handleChange(field.name, e.target.value)}/>
                             <div className={'czUi-form-error'}>{errors && errors[field.name] ?
                                 errorsDisplayMode === 'all' ?
-                                    errors[field.name].join(',') :
-                                    errors[field.name][0]
+                                    errors[field.name].map(transformErrors).join(',') :
+                                    transformErrors(errors[field.name][0])
                                 : <span>&nbsp;</span>}
                             </div>
                         </td>
@@ -61,6 +71,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
     )
 }
 Form.defaultProps = {
-    errorsDisplayMode: 'first'
+    errorsDisplayMode: 'first',
+
 }
 export default Form
