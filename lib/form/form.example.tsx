@@ -13,6 +13,11 @@ const checkUsername = (username: string, succeed: () => void, failed: () => void
         }
     }, 1000)
 }
+const validator = (username: string) => {
+    return new Promise<string>((resolve, reject) => {
+        checkUsername(username, resolve, ()=>reject('unique'))
+    })
+}
 const FormExample: React.FunctionComponent = () => {
     const [formData, setFormData] = useState<FormValue>({username: '', password: ''})
     const [errors, setErrors] = useState({})
@@ -22,16 +27,8 @@ const FormExample: React.FunctionComponent = () => {
     ])
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const rules = [
-            {
-                key: 'username', validator: {
-                    name: 'unique',
-                    validate(username: string) {
-                        return new Promise<void>((resolve, reject) => {
-                            checkUsername(username, resolve, reject)
-                        })
-                    }
-                }
-            },
+            { key: 'username', validator },
+            { key: 'username', validator },
             {key: 'username', required: true},
             {key: 'username', minLength: 8, maxLength: 18},
             {key: 'username', pattern: /^[A-Za-z0-9]+$/},
@@ -44,7 +41,7 @@ const FormExample: React.FunctionComponent = () => {
     }
     const transformError = (message: string) => {
         const map: { [k: string]: string } = {
-            unique:'用户名已存在'
+            unique: '用户名已存在',
         }
         return map[message]
     }
