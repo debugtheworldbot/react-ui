@@ -3,7 +3,7 @@ import Form, {FormValue} from "./form";
 import Validator from "./validator";
 import Button from "../button/button";
 
-const nameList = ['adele', 'bieber', 'beatles', 'hunger1']
+const nameList = ['adele', 'bieber', 'beatles','hunger1']
 const checkUsername = (username: string, succeed: () => void, failed: () => void) => {
     setTimeout(() => {
         if (nameList.indexOf(username) >= 0) {
@@ -15,7 +15,7 @@ const checkUsername = (username: string, succeed: () => void, failed: () => void
 }
 const validator = (username: string) => {
     return new Promise<string>((resolve, reject) => {
-        checkUsername(username, resolve, ()=>reject('unique'))
+        checkUsername(username, resolve, () => reject('unique'))
     })
 }
 const FormExample: React.FunctionComponent = () => {
@@ -27,10 +27,12 @@ const FormExample: React.FunctionComponent = () => {
     ])
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const rules = [
-            { key: 'username', validator },
-            { key: 'username', validator },
+            {key: 'username', validator},
+            {key: 'username', validator},
+            {key: 'password', validator},
+            {key: 'password', validator},
             {key: 'username', required: true},
-            {key: 'username', minLength: 8, maxLength: 18},
+            {key: 'username', minLength: 3, maxLength: 18},
             {key: 'username', pattern: /^[A-Za-z0-9]+$/},
             {key: 'password', required: true},
 

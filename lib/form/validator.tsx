@@ -47,7 +47,20 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
         }
 
     })
-    console.log(errors)
+    const res= Object.keys(errors).map(key =>
+            errors[key].map((promise:OneError)=>
+                [key,promise]
+            )
+        )
+    const a =flat(res)
+
+    const b = a.map(([key,promise])=>promise.then((res:undefined)=>[key,res],(reason:string)=>[key,reason]))
+    Promise.all(b).then((results)=>{
+        const a =zip(results)
+        console.log(a)
+        // results.map(error=>)
+    })
+
     // const promiseList = flat(Object.values(errors)).filter((error) => error.promise)
     //     .map(item => item.promise)
     // const getMessage = () => {
@@ -61,17 +74,27 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
 
     // Promise.all(promiseList).then(getMessage, xx)
 }
-// const flat = (arr: any[]) => {
-//     const result = []
-//     for (let i = 0; i < arr.length; i++) {
-//         if (arr[i] instanceof Array) {
-//             result.push(...arr[i])
-//         } else {
-//             result.push(arr)
-//         }
-//     }
-//     return result
-// }
+const zip = (arr:[string,string][])=>{
+    const map:{ [k: string]: string[] } = {}
+    for (let i = 0; i < arr.length; i++) {
+        map[arr[i][0]]= map[arr[i][0]] || []
+        if(arr[i][1]){
+            map[arr[i][0]].push(arr[i][1])
+        }
+    }
+    return map
+}
+const flat = (arr: any[]) => {
+    const result = []
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] instanceof Array) {
+            result.push(...arr[i])
+        } else {
+            result.push(arr)
+        }
+    }
+    return result
+}
 // const fromEntries = (arr: [string, string[]][]) => {
 //     const result: { [key: string]: string[] } = {}
 //     for (let i = 0; i < arr.length; i++) {
