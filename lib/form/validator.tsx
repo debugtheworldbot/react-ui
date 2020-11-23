@@ -54,9 +54,24 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
         )
     const a =flat(res)
 
-    const b = a.map(([key,promise])=>promise.then((res:undefined)=>[key,res],(reason:string)=>[key,reason]))
-    Promise.all(b).then((results)=>{
+
+    // const b = a.map(([key,promiseOrString])=>(promiseOrString instanceof Promise?
+    //     (promiseOrString.then(
+    //     (res:undefined)=>[key,res],
+    //     (reason:string)=>[key,reason]
+    //     ))
+    //     :(Promise.reject(promiseOrString)).then(
+    //     ()=>{},
+    //     ()=>[key,promiseOrString])))
+    // simplify to this :
+    const b = a.map(([key,promiseOrString])=>(promiseOrString instanceof Promise? promiseOrString :Promise.reject(promiseOrString))
+        .then(
+            (res:undefined)=>[key,res],
+            (reason:string)=>[key,reason]
+        ))
+    Promise.all(b).then((results:[string,string][])=>{
         const a =zip(results)
+        callBack(a)
         console.log(a)
         // results.map(error=>)
     })
