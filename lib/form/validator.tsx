@@ -17,10 +17,10 @@ export const noErrors = (errors: any) => {
     return Object.keys(errors).length === 0
 }
 
-type OneError = string | Promise<string> | undefined
+type OneError = string | Promise<string>
 
 const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: any) => void) => {
-    let errors:{[k:string]:OneError[]} = {}
+    let errors: { [k: string]: OneError[] } = {}
     const addError = (error: OneError, key: string) => {
         if (errors[key] === undefined) {
             errors[key] = []
@@ -48,16 +48,21 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
 
     })
     const flatErrors = flat(Object.keys(errors).map(key =>
-        errors[key].map<[string,OneError]>((promiseOrString) => [key, promiseOrString])))
+        errors[key].map<[string, OneError]>((promiseOrString) => [key, promiseOrString])))
 
     const newPromises = flatErrors.map(([key, promiseOrString]) => (promiseOrString instanceof Promise ? promiseOrString : Promise.reject(promiseOrString))
-        .then(
-            (res: undefined) => [key, res],
+        .then<[string, undefined], [string, string]>(
+            () => [key, undefined],
             (reason: string) => [key, reason]
         ))
 
-    Promise.all(newPromises).then((results: [string, string][]) => {
-        callBack(zip(results))
+    //https://www.tslang.cn/docs/handbook/advanced-types.html 类型保护与区分类型（Type Guards and Differentiating Types）
+    function hasError(error: [string, string] | [string, undefined]): error is [string, string] {
+        return typeof error[1] === 'string'
+    }
+
+    Promise.all(newPromises).then((results) => {
+        callBack(zip(results.filter<[string, string]>(hasError)))
     })
 }
 const zip = (arr: [string, string][]) => {
@@ -71,8 +76,9 @@ const zip = (arr: [string, string][]) => {
     }
     return map
 }
-function flat<T>(arr:Array<T | T[]>)  {
-    const result:T[] = []
+
+function flat<T>(arr: Array<T | T[]>) {
+    const result: T[] = []
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] instanceof Array) {
             result.push(...arr[i] as T[])
@@ -82,4 +88,5 @@ function flat<T>(arr:Array<T | T[]>)  {
     }
     return result
 }
+
 export default Validator
