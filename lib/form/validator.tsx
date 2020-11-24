@@ -17,10 +17,10 @@ export const noErrors = (errors: any) => {
     return Object.keys(errors).length === 0
 }
 
-type OneError = string | Promise<string>
+type OneError = string | Promise<string> | undefined
 
 const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: any) => void) => {
-    let errors: any = {}
+    let errors:{[k:string]:OneError[]} = {}
     const addError = (error: OneError, key: string) => {
         if (errors[key] === undefined) {
             errors[key] = []
@@ -48,7 +48,7 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
 
     })
     const flatErrors = flat(Object.keys(errors).map(key =>
-        errors[key].map((promiseOrString: OneError) => [key, promiseOrString])))
+        errors[key].map<[string,OneError]>((promiseOrString) => [key, promiseOrString])))
 
     const newPromises = flatErrors.map(([key, promiseOrString]) => (promiseOrString instanceof Promise ? promiseOrString : Promise.reject(promiseOrString))
         .then(
@@ -61,6 +61,7 @@ const Validator = (formValue: FormValue, rules: FormRules[], callBack: (errors: 
     })
 }
 const zip = (arr: [string, string][]) => {
+    // [name,value][] => {name:value1,value2}
     const map: { [k: string]: string[] } = {}
     for (let i = 0; i < arr.length; i++) {
         map[arr[i][0]] = map[arr[i][0]] || []
@@ -70,13 +71,13 @@ const zip = (arr: [string, string][]) => {
     }
     return map
 }
-const flat = (arr: any[]) => {
-    const result = []
+function flat<T>(arr:Array<T | T[]>)  {
+    const result:T[] = []
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] instanceof Array) {
-            result.push(...arr[i])
+            result.push(...arr[i] as T[])
         } else {
-            result.push(arr)
+            result.push(arr[i] as T)
         }
     }
     return result
