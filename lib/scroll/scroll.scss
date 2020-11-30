@@ -1,3 +1,14 @@
 .czUi-scroll{
+  position: relative;
+  overflow: hidden;
+  &-inner{
+    overflow: auto;
+    border: 2px solid green;
+    position: absolute;
+    top: 0;
+    right: -14px;
+    left: 0;
+    bottom: 0;
+  }
 
 }

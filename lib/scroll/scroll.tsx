@@ -1,14 +1,17 @@
 import React from 'react'
 import './scroll.scss'
 
-interface ScrollProps extends React.HTMLAttributes<HTMLDivElement>{
+interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 
 }
-const Scroll:React.FunctionComponent<ScrollProps>=(props)=>{
-    const {children,...rest} = props
+
+const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
+    const {children, ...rest} = props
     return (
         <div {...rest} className={'czUi-scroll'}>
-            {children}
+            <div className={'czUi-scroll-inner'}>
+                {children}
+            </div>
         </div>
     )
 }
