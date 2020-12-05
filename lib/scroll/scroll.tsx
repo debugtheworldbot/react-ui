@@ -1,4 +1,4 @@
-import React, { UIEventHandler, useState } from 'react'
+import React, { UIEventHandler, useState, useEffect, useRef } from 'react'
 import './scroll.scss'
 import scrollbarWidth from "./scrollbarWidth";
 
@@ -10,19 +10,23 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const {children, ...rest} = props
     const [h,setH]=useState(0)
     const [t,setT]=useState(0)
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const onScroll:UIEventHandler=(e)=>{
-        const scrollHeight=e.currentTarget.scrollHeight
-        const viewHeight=e.currentTarget.getBoundingClientRect().height
-        const barHeight=viewHeight*viewHeight/scrollHeight
+        const viewHeight=containerRef.current!.getBoundingClientRect().height
         const sHeight=e.currentTarget.scrollTop
-        const r= sHeight*viewHeight/scrollHeight
-        setH(barHeight)
-        setT(r)
+        const a = sHeight * h / viewHeight
+        setT(a)
     }
+    useEffect(()=>{
+        const scrollHeight=containerRef.current!.scrollHeight
+        const viewHeight=containerRef.current!.getBoundingClientRect().height
+        const barHeight=viewHeight*viewHeight/scrollHeight
+        setH(barHeight)
+    },[])
     return (
         <div {...rest} className={'czUi-scroll'}>
-            <div className={'czUi-scroll-inner'} style={{right: -scrollbarWidth()}} onScroll={onScroll}>
+            <div className={'czUi-scroll-inner'} ref={containerRef} style={{right: -scrollbarWidth()}} onScroll={onScroll}>
                 {children}
             </div>
             <div className={'czUi-scroll-track'}>
