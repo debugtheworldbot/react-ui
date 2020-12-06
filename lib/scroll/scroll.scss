@@ -3,7 +3,6 @@
   overflow: hidden;
   &-inner{
     overflow: auto;
-    border: 2px solid green;
     position: absolute;
     top: 0;
     right:0;
@@ -12,18 +11,23 @@
   }
   &-track{
     position: absolute;
-    width: 10px;
+    width: 11px;
     height: 100%;
     right: 0;
     top: 0;
-    background: grey;
+    border-left: 1px solid #e8e8e8;
     > div{
       position: absolute;
       top: 0;
-      right: 0;
-      width: 100%;
+      left: 2px;
+      width: 6px;
       height: 10px;
-      background: red;
+      background: #c1c1c1;
+      border-radius: 4px;
+      transition: all 0.1s;
+      &:hover{
+        background: #7d7d7d;
+      }
     }
   }
 }

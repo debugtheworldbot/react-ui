@@ -29,7 +29,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
                 {children}
             </div>
             <div className={'czUi-scroll-track'}>
-                <div className="czUi-scroll-bar" style={{height: barHeight, top: topDistance}}/>
+                <div className="czUi-scroll-bar" style={{height: barHeight, transform:`translateY(${topDistance}px)`}}/>
             </div>
         </div>
     );
