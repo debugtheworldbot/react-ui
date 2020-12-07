@@ -9,7 +9,7 @@ interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const {children, ...rest} = props
     const [barHeight, setBarHeight] = useState(0)
-    const [topDistance, setTopDistance] = useState(0)
+    const [topDistance, _setTopDistance] = useState(0)
     // const [mouseDownPos, setMouseDownPos] = useState(0)
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -18,28 +18,34 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         setBarHeight(viewHeight * viewHeight / scrollHeight)
     }, [])
+    const setTopDistance = (number: number) => {
+        if (number < 0) return
+        const {current} = containerRef
+        const scrollHeight = current!.scrollHeight
+        const viewHeight = current!.getBoundingClientRect().height
+        const maxTop = ((scrollHeight - viewHeight) * barHeight / viewHeight)
+        if (number > maxTop) return
+        _setTopDistance(number)
+    }
     const onScroll: UIEventHandler = (e) => {
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         const sHeight = e.currentTarget.scrollTop
         setTopDistance(sHeight * barHeight / viewHeight)
     }
     const dragging = useRef<boolean>(false)
-    const pos = useRef(0)
+    const firstYRef = useRef(0)
+    const preTopDistance = useRef(0)
     const onMouseDown: MouseEventHandler = (e) => {
         dragging.current = true
-        pos.current = e.clientY
+        firstYRef.current = e.clientY
+        preTopDistance.current = topDistance
     }
     const onMouseMove: MouseEventHandler = (e) => {
-        const viewHeight = containerRef.current!.getBoundingClientRect().height
-        const a = viewHeight - barHeight
-        const b = e.clientY - pos.current
-        if (dragging.current && b > 0 && b < a) {
-            setTopDistance(e.clientY - pos.current)
-        }
+        const delta = e.clientY - firstYRef.current
+        setTopDistance(delta + preTopDistance.current)
     }
     const onMouseUp: MouseEventHandler = (e) => {
         dragging.current = false
-        pos.current = topDistance
     }
     return (
         <div {...rest} className={'czUi-scroll'} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
