@@ -40,11 +40,18 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         firstYRef.current = e.clientY
         preTopDistance.current = topDistance
     }
-    const onMouseMove= (e:React.MouseEvent<Element, MouseEvent> | MouseEvent) => {
+    const onMouseMove = (e: React.MouseEvent<Element, MouseEvent>) => {
         const delta = e.clientY - firstYRef.current
-        dragging.current && setTopDistance(delta + preTopDistance.current)
+        if (dragging.current) {
+            const newDistance=delta + preTopDistance.current
+            const viewHeight = containerRef.current!.getBoundingClientRect().height
+            const scrollHeight = containerRef.current!.scrollHeight
+            setTopDistance(newDistance)
+            containerRef.current!.scrollTop = newDistance * scrollHeight /viewHeight
+
+        }
     }
-    const onMouseUp= () => {
+    const onMouseUp = () => {
         dragging.current = false
     }
     return (
