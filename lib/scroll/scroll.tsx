@@ -40,15 +40,15 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         firstYRef.current = e.clientY
         preTopDistance.current = topDistance
     }
-    const onMouseMove: MouseEventHandler = (e) => {
+    const onMouseMove= (e:React.MouseEvent<Element, MouseEvent> | MouseEvent) => {
         const delta = e.clientY - firstYRef.current
-        setTopDistance(delta + preTopDistance.current)
+        dragging.current && setTopDistance(delta + preTopDistance.current)
     }
-    const onMouseUp: MouseEventHandler = (e) => {
+    const onMouseUp= () => {
         dragging.current = false
     }
     return (
-        <div {...rest} className={'czUi-scroll'} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
+        <div {...rest} className={'czUi-scroll'} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             <div className={'czUi-scroll-inner'} ref={containerRef} style={{right: -scrollbarWidth()}}
                  onScroll={onScroll}>
                 {children}
