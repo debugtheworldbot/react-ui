@@ -10,7 +10,6 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const {children, ...rest} = props
     const [barHeight, setBarHeight] = useState(0)
     const [topDistance, _setTopDistance] = useState(0)
-    // const [mouseDownPos, setMouseDownPos] = useState(0)
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -43,17 +42,26 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const onMouseMove = (e: React.MouseEvent<Element, MouseEvent>) => {
         const delta = e.clientY - firstYRef.current
         if (dragging.current) {
-            const newDistance=delta + preTopDistance.current
+            const newDistance = delta + preTopDistance.current
             const viewHeight = containerRef.current!.getBoundingClientRect().height
             const scrollHeight = containerRef.current!.scrollHeight
             setTopDistance(newDistance)
-            containerRef.current!.scrollTop = newDistance * scrollHeight /viewHeight
+            containerRef.current!.scrollTop = newDistance * scrollHeight / viewHeight
 
         }
     }
     const onMouseUp = () => {
         dragging.current = false
     }
+    const onSelect = (e: Event) => {
+        if (dragging.current) e.preventDefault()
+    }
+    useEffect(() => {
+        document.addEventListener('selectstart', onSelect)
+        return () => {
+            document.removeEventListener('selectstart', onSelect)
+        }
+    }, [])
     return (
         <div {...rest} className={'czUi-scroll'} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             <div className={'czUi-scroll-inner'} ref={containerRef} style={{right: -scrollbarWidth()}}
