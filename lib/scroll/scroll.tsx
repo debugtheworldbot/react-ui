@@ -6,16 +6,21 @@ interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 
 }
 
+const supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
 const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const {children, ...rest} = props
     const [barHeight, setBarHeight] = useState(0)
     const [topDistance, _setTopDistance] = useState(0)
+    const [supportTouch,setSupportTouch]=useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
+
 
     useEffect(() => {
         const scrollHeight = containerRef.current!.scrollHeight
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         setBarHeight(viewHeight * viewHeight / scrollHeight)
+        setSupportTouch(!!supportsTouch)
     }, [])
     const setTopDistance = (number: number) => {
         if (number < 0) return
@@ -68,10 +73,12 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
                  onScroll={onScroll}>
                 {children}
             </div>
+            {!supportTouch &&
             <div className={'czUi-scroll-track'} onMouseDown={onMouseDown}>
                 <div className="czUi-scroll-bar"
                      style={{height: barHeight, transform: `translateY(${topDistance}px)`}}/>
             </div>
+            }
         </div>
     );
 }
