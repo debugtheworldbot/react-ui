@@ -32,6 +32,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         _setTopDistance(number)
     }
     const onScroll: UIEventHandler = (e) => {
+        setSupportTouch(false)
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         const sHeight = e.currentTarget.scrollTop
         setTopDistance(sHeight * barHeight / viewHeight)
