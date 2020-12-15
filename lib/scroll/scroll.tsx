@@ -37,12 +37,15 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         const sHeight = e.currentTarget.scrollTop
         setTopDistance(sHeight * barHeight / viewHeight)
-        if (timerRef.current) {
-            clearTimeout(timerRef.current)
+        if(!dragging.current){
+            // if is dragging , always show bar until mouse up
+            if (timerRef.current) {
+                clearTimeout(timerRef.current)
+            }
+            timerRef.current = window.setTimeout(() => {
+                setBarVisible(false)
+            }, 1000)
         }
-        timerRef.current = window.setTimeout(() => {
-            setBarVisible(false)
-        }, 1000)
     }
     const dragging = useRef<boolean>(false)
     const firstYRef = useRef(0)
@@ -60,11 +63,13 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
             const scrollHeight = containerRef.current!.scrollHeight
             setTopDistance(newDistance)
             containerRef.current!.scrollTop = newDistance * scrollHeight / viewHeight
-
         }
     }
     const onMouseUp = () => {
         dragging.current = false
+        timerRef.current = window.setTimeout(() => {
+            setBarVisible(false)
+        }, 1000)
     }
     const onSelect = (e: Event) => {
         if (dragging.current) e.preventDefault()
