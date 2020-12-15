@@ -12,7 +12,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const {children, ...rest} = props
     const [barHeight, setBarHeight] = useState(0)
     const [topDistance, _setTopDistance] = useState(0)
-    const [supportTouch,setSupportTouch]=useState(false)
+    const [barVisible, setBarVisible] = useState(true)
     const containerRef = useRef<HTMLDivElement>(null)
 
 
@@ -20,7 +20,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         const scrollHeight = containerRef.current!.scrollHeight
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         setBarHeight(viewHeight * viewHeight / scrollHeight)
-        setSupportTouch(!!supportsTouch)
+        setBarVisible(!!supportsTouch)
     }, [])
     const setTopDistance = (number: number) => {
         if (number < 0) return
@@ -31,11 +31,18 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         if (number > maxTop) return
         _setTopDistance(number)
     }
+    const timerRef = useRef<number | null>(null)
     const onScroll: UIEventHandler = (e) => {
-        setSupportTouch(false)
+        setBarVisible(true)
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         const sHeight = e.currentTarget.scrollTop
         setTopDistance(sHeight * barHeight / viewHeight)
+        if (timerRef.current) {
+            clearTimeout(timerRef.current)
+        }
+        timerRef.current = window.setTimeout(() => {
+            setBarVisible(false)
+        }, 1000)
     }
     const dragging = useRef<boolean>(false)
     const firstYRef = useRef(0)
@@ -74,7 +81,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
                  onScroll={onScroll}>
                 {children}
             </div>
-            {!supportTouch &&
+            {barVisible &&
             <div className={'czUi-scroll-track'} onMouseDown={onMouseDown}>
                 <div className="czUi-scroll-bar"
                      style={{height: barHeight, transform: `translateY(${topDistance}px)`}}/>
