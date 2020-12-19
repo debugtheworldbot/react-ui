@@ -37,7 +37,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         const viewHeight = containerRef.current!.getBoundingClientRect().height
         const sHeight = e.currentTarget.scrollTop
         setTopDistance(sHeight * barHeight / viewHeight)
-        if(!dragging.current){
+        if (!dragging.current) {
             // if is dragging , always show bar until mouse up
             if (timerRef.current) {
                 clearTimeout(timerRef.current)
@@ -80,16 +80,20 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
             document.removeEventListener('selectstart', onSelect)
         }
     }, [])
-    const [pullUp,setPullUp]=useState(0)
-    const pullRef=useRef(0)
-    const onTouchStart:TouchEventHandler =(e) =>{
-        pullRef.current=e.touches[0].clientY //first finger touch's Y pos
+    const [pullUp, setPullUp] = useState(0)
+    const pullRef = useRef(0)
+    const onTouchStart: TouchEventHandler = (e) => {
+        pullRef.current = e.touches[0].clientY //first finger touch's Y pos
     }
-    const onTouchMove:TouchEventHandler =(e) =>{
-        const distance = e.touches[0].clientY - pullRef.current
-        setPullUp(Math.sqrt(distance) * 4)
+    const onTouchMove: TouchEventHandler = (e) => {
+        if (topDistance === 0) {
+            const distance = e.touches[0].clientY - pullRef.current
+            if (distance > 0) {
+                setPullUp(Math.sqrt(distance) * 4)
+            }
+        }
     }
-    const onTouchEnd = ()=>{
+    const onTouchEnd = () => {
         // refresh
         setPullUp(0)
     }
@@ -98,7 +102,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
         <div {...rest} className={'czUi-scroll'} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             <div className={'czUi-scroll-inner'} ref={containerRef} style={{
                 right: -scrollbarWidth(),
-                transform:`translateY(${pullUp}px)`,
+                transform: `translateY(${pullUp}px)`,
             }}
                  onTouchStart={onTouchStart}
                  onTouchMove={onTouchMove}
