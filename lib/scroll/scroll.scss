@@ -1,26 +1,39 @@
-.czUi-scroll{
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.czUi-scroll {
   position: relative;
   overflow: hidden;
-  &-inner{
+
+  &-inner {
     overflow: auto;
     position: absolute;
     top: 0;
-    right:0;
+    right: 0;
     left: 0;
     bottom: 0;
     transition: all 0.2s;
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
       display: none;
     }
   }
-  &-track{
+
+  &-track {
     position: absolute;
     width: 11px;
     height: 100%;
     right: 0;
     top: 0;
     border-left: 1px solid #e8e8e8;
-    > div{
+
+    > div {
       position: absolute;
       top: 0;
       left: 2px;
@@ -29,9 +42,24 @@
       background: #c1c1c1;
       border-radius: 4px;
       transition: all 0.1s;
-      &:active,&:hover{
+
+      &:active, &:hover {
         background: #7d7d7d;
       }
+    }
+  }
+
+  &-pulling {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    &-loading {
+      animation: loading 0.5s linear infinite;
+    }
+    svg{
+      width: 30px;
+      height: 30px;
     }
   }
 }

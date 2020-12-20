@@ -1,6 +1,7 @@
 import React, {UIEventHandler, useState, useEffect, useRef, MouseEventHandler, TouchEventHandler} from 'react'
 import './scroll.scss'
 import scrollbarWidth from "./scrollbarWidth";
+import {Icon} from "../index";
 
 interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 
@@ -114,8 +115,13 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
             <div className={'czUi-scroll-track'} onMouseDown={onMouseDown}>
                 <div className="czUi-scroll-bar"
                      style={{height: barHeight, transform: `translateY(${topDistance}px)`}}/>
+            </div>}
+            <div className={'czUi-scroll-pulling'} style={{height:pullUp}}>
+                {pullUp<35?<Icon name={'down'}/>:
+                    <Icon className={'czUi-scroll-pulling-loading'} name={'loading'}/>
+                }
+
             </div>
-            }
         </div>
     );
 }
