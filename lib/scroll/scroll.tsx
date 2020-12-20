@@ -10,7 +10,7 @@ interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 const supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
 const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
-    const {children, ...rest} = props
+    const {children,onRefresh, ...rest} = props
     const [barHeight, setBarHeight] = useState(0)
     const [topDistance, _setTopDistance] = useState(0)
     const [barVisible, setBarVisible] = useState(true)
@@ -97,7 +97,7 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     const onTouchEnd = () => {
         // refresh
         if (pullUp > 35) {
-            props.onRefresh && props.onRefresh()
+            onRefresh && onRefresh()
         }
         setPullUp(0)
     }
