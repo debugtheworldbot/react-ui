@@ -4,7 +4,7 @@ import scrollbarWidth from "./scrollbarWidth";
 import {Icon} from "../index";
 
 interface ScrollProps extends React.HTMLAttributes<HTMLDivElement> {
-
+    onRefresh?: () => void
 }
 
 const supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
@@ -96,6 +96,9 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
     }
     const onTouchEnd = () => {
         // refresh
+        if (pullUp > 35) {
+            props.onRefresh && props.onRefresh()
+        }
         setPullUp(0)
     }
 
@@ -116,11 +119,10 @@ const Scroll: React.FunctionComponent<ScrollProps> = (props) => {
                 <div className="czUi-scroll-bar"
                      style={{height: barHeight, transform: `translateY(${topDistance}px)`}}/>
             </div>}
-            <div className={'czUi-scroll-pulling'} style={{height:pullUp}}>
-                {pullUp<35?<Icon name={'down'}/>:
+            <div className={'czUi-scroll-pulling'} style={{height: pullUp}}>
+                {pullUp < 35 ? <Icon name={'down'}/> :
                     <Icon className={'czUi-scroll-pulling-loading'} name={'loading'}/>
                 }
-
             </div>
         </div>
     );
