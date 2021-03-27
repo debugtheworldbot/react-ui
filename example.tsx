@@ -8,6 +8,7 @@ import LayoutExample from "./lib/layout/layout.example";
 import SwitchExample from "./lib/switch/switch.example";
 import FormExample from "./lib/form/form.example"
 import ScrollExample from "./lib/scroll/scroll.example"
+import TreeExample from "./lib/tree/tree.example"
 import {Layout,Header,Aside,Content,Footer} from "./lib/layout/layout";
 import './example.scss'
 
@@ -43,6 +44,10 @@ ReactDom.render((
                     <ul>
                         <li><NavLink to={'/scroll'}>scroll</NavLink></li>
                     </ul>
+                    <ul>
+                        <li><NavLink to={'/tree'}>tree</NavLink></li>
+                    </ul>
+
 
                 </Aside>
                 <Content>
@@ -53,6 +58,7 @@ ReactDom.render((
                     <Route path={'/switch'} component={SwitchExample} />
                     <Route path={'/form'} component={FormExample} />
                     <Route path={'/scroll'} component={ScrollExample} />
+                    <Route path={'/tree'} component={TreeExample} />
                 </Content>
             </Layout>
             <Footer className={'site-footer'}>
