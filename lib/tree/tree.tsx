@@ -12,9 +12,16 @@ interface Source {
 
 const Tree: React.FC<Props> = (props) => {
   const {sourceData} = props
+  const recurse = (item: Source[]) => {
+    return item.map(i => <div key={i.value}>
+      <div>{i.text}</div>
+      {i.children && recurse(i.children)}
+    </div>)
+  }
   return (
     <div>
-      tree
+      <h1>tree</h1>
+      {recurse(sourceData)}
     </div>
   )
 }
